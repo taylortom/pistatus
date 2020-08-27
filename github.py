@@ -2,11 +2,10 @@
 import requests
 import write
 
-contributions = 0
-
-def update():
-    url = 'http://localhost:5000/api/github'
+def writeContributions(contributions):
+    url = 'http://192.168.1.94:5000/api/github'
     r = requests.get(url).json()
-    if contributions != contributions: 
-        contributions = r["contributions"]
-        write(contributions)
+    newContributions = int(r["contributions"])
+    if newContributions != contributions:
+        write.scroll(str(newContributions))
+        return newContributions
