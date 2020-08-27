@@ -15,6 +15,7 @@ def strToColour(s):
 
 def init_unicorn():
     unicornhatmini = UnicornHATMini()
+    unicornhatmini.clear()
     unicornhatmini.set_rotation(180)
     unicornhatmini.set_brightness(0.1)
     return unicornhatmini;
