@@ -6,6 +6,7 @@ import write;
 class App:
     def __init__(self):
         self.timer = False
+        write.scroll("(^.^)", "Rainbow", 1)
         buttons.listen(self.on_press)
 
     def on_press(self, button_name):
