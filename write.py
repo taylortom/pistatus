@@ -9,9 +9,9 @@ from unicornhatmini import UnicornHATMini
 
 class Colours():
     def __init__(self):
-        self.Red = "255,0,0"
-        self.Green = "0,255,0"
-        self.Blue = "0,0,255"
+        self.Red = "255,10,0"
+        self.Green = "0,255,10"
+        self.Blue = "0,10,255"
         self.White = "255,255,255"
         self.Black = "0,0,0"
 	self.Rainbow = "Rainbow" # note: special case
