@@ -19,7 +19,6 @@ class App:
                 colour = "Red"
             else:
                 colour = "Rainbow"
-                message = message + " *(^_^)*"
             write.scroll(message, colour)
         elif button_name == "B":
             write.scroll(github.getStatus())
