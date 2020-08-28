@@ -7,12 +7,22 @@ from colorsys import hsv_to_rgb
 from PIL import Image, ImageDraw, ImageFont
 from unicornhatmini import UnicornHATMini
 
+class Colours():
+    def __init__(self):
+        self.Red = "255,0,0"
+        self.Green = "0,255,0"
+        self.Blue = "0,0,255"
+        self.White = "255,255,255"
+        self.Black = "0,0,0"
+
+    def strToColour(self, s):
+        r, g, b = s.split(",")
+        return [int(r), int(g), int(b)]
+
 default_colour = "255,255,255"
 default_show_total = 2
+COLOURS = Colours()
 
-def strToColour(s):
-   r, g, b = s.split(",")
-   return [int(r), int(g), int(b)]
 
 def init_unicorn():
     unicornhatmini = UnicornHATMini()
@@ -21,7 +31,7 @@ def init_unicorn():
     unicornhatmini.set_brightness(0.1)
     return unicornhatmini;
 
-def scroll(text, colour = "255,255,255", show_total = 2):
+def scroll(text, colour = COLOURS.White, show_total = 2):
     uni = init_unicorn()
 
     display_width, display_height = uni.get_shape()
@@ -33,7 +43,7 @@ def scroll(text, colour = "255,255,255", show_total = 2):
 
     show_count = 0
     offset_x = 0
-    r, g, b = strToColour(colour)
+    r, g, b = COLOURS.strToColour(colour)
 
     while show_count < show_total:
         for y in range(display_height):
@@ -51,4 +61,3 @@ def scroll(text, colour = "255,255,255", show_total = 2):
 
         uni.show()
         time.sleep(0.05)
-
