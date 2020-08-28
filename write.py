@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-import time
+import os
 import sys
+import time
 
 from colorsys import hsv_to_rgb
 from PIL import Image, ImageDraw, ImageFont
@@ -24,7 +25,7 @@ def scroll(text, colour = "255,255,255", show_total = 2):
     uni = init_unicorn()
 
     display_width, display_height = uni.get_shape()
-    font = ImageFont.truetype("5x7.ttf", 8)
+    font = ImageFont.truetype(os.path.dirname(os.path.realpath(__file__)) + "/5x7.ttf", 8)
     text_width, text_height = font.getsize(text)
     image = Image.new('P', (text_width + display_width + display_width, display_height), 0)
     draw = ImageDraw.Draw(image)
