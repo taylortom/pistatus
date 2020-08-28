@@ -1,34 +1,68 @@
 import buttons;
 import github;
+import sites;
 import timer;
 import write;
-
-TARGET_CONTRIBUTIONS = 3000
 
 class App:
     def __init__(self):
         self.timer = False
-        write.scroll("(^.^)", "Rainbow", 1)
+        self.write("(^.^)")
         buttons.listen(self.on_press)
 
     def on_press(self, button_name):
         if button_name == "A":
-            c = github.getContributions()
-            message = str(c)
-	    if c < TARGET_CONTRIBUTIONS:
-                colour = "Red"
-            else:
-                colour = "Rainbow"
-            write.scroll(message, colour)
+            self.handleContributions()
         elif button_name == "B":
-            write.scroll(github.getStatus())
+            self.handleStatus()
         elif button_name == "X":
-            write.scroll(timer.getTime())
+            self.handleTime()
         elif button_name == "Y":
-            if self.timer == False:
-                self.timer = timer.createTimer()
-                write.scroll("Timer started")
-            else: 
-                write.scroll(self.timer.getRemainingStr(), "255,0,0", 1)
+            self.handleSites()
+
+    def handleContributions(self):
+        c = github.getContributions()
+        if c == False:
+            self.writeError("conn fail")
+        elif c < 3000:
+            self.writeError(c)
+        else:
+            self.write(c)
+
+    def handleSites(self):
+        self.handleSite("taylorhub", "http://192.168.1.94:5000")
+        self.handleSite("reactions", "http://reactions.tomtaylor.name")
+
+    def handleSite(self, name, url):
+        if sites.checkSite(url):
+            self.writeSuccess(name)
+        else:
+            self.writeError(name)
+
+    def handleStatus(self):
+        s = github.getStatus()
+        if s == False:
+            self.writeError("conn fail")
+        else:
+            self.write(s)
+
+    def handleTime(self):
+        self.write(timer.getTime())
+
+    def handleTimer(self):
+        if self.timer == False:
+            self.timer = timer.createTimer()
+            self.write("Timer started")
+        else:
+            self.write(self.timer.getRemainingStr())
+
+    def write(self, message):
+        write.scroll(str(message), "Rainbow", 1)
+
+    def writeError(self, message):
+        write.scroll(str(message), "Red", 1)
+
+    def writeSuccess(self, message):
+        write.scroll(str(message), "Green", 1)
 
 App()
