@@ -3,11 +3,12 @@ import github;
 import sites;
 import timer;
 import write;
+from animations import render;
 
 class App:
     def __init__(self):
         self.timer = False
-        self.write("(^.^)")
+        render("swirl")
         buttons.listen(self.on_press)
 
     def on_press(self, button_name):
@@ -17,6 +18,7 @@ class App:
             self.handleSites()
         elif button_name == "X":
             self.handleTime()
+
         elif button_name == "Y":
             self.handleStatus()
 
