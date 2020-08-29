@@ -14,11 +14,11 @@ class App:
         if button_name == "A":
             self.handleContributions()
         elif button_name == "B":
-            self.handleStatus()
+            self.handleSites()
         elif button_name == "X":
             self.handleTime()
         elif button_name == "Y":
-            self.handleSites()
+            self.handleStatus()
 
     def handleContributions(self):
         c = github.getContributions()
