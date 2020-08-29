@@ -2,7 +2,7 @@
 import requests
 
 def getData():
-    url = 'http://192.168.1.94:5000/api/github'
+    url = 'http://192.168.1.94:5000/api/github/stats'
     try:
         return requests.get(url).json()
     except:
