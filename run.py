@@ -2,69 +2,58 @@ import buttons;
 import github;
 import sites;
 import timer;
-import write;
+import writer;
 from animations import render;
 
 class App:
     def __init__(self):
         self.timer = False
+        self.writer = writer.Writer()
         render("swirl")
         buttons.listen(self.on_press)
 
     def on_press(self, button_name):
-        if button_name == "A":
-            self.handleContributions()
-        elif button_name == "B":
-            self.handleSites()
-        elif button_name == "X":
-            self.handleTime()
-
-        elif button_name == "Y":
-            self.handleStatus()
+        if button_name == "A": self.handleContributions()
+        elif button_name == "B": self.handleSites()
+        elif button_name == "X": self.handleTime()
+        elif button_name == "Y": self.handleStatus()
 
     def handleContributions(self):
         c = github.getContributions()
-        if c == False:
-            self.writeError("conn fail")
-        elif c < 3000:
-            self.writeError(c)
-        else:
-            self.write(c)
+        if c == False: self.writeError("conn fail")
+        elif c < 3000: self.writeError(c)
+        else: self.write(c)
 
     def handleSites(self):
         self.handleSite("taylorhub", "http://192.168.1.94:5000")
         self.handleSite("reactions", "http://reactions.tomtaylor.name")
 
     def handleSite(self, name, url):
-        if sites.checkSite(url):
-            self.writeSuccess(name)
-        else:
-            self.writeError(name)
+        if sites.checkSite(url): self.writeSuccess(name)
+        else: self.writeError(name)
 
     def handleStatus(self):
         s = github.getStatus()
-        if s == False:
-            self.writeError("conn fail")
-        else:
-            self.write(s)
+        if s == False: self.writeError("conn fail")
+        else: self.write(s)
 
     def handleTime(self):
         self.write(timer.getTime())
 
     def handleTimer(self):
-        if self.timer == False:
-            self.timer = timer.createTimer()
-            self.write("Timer started")
-        else:
-            self.write(self.timer.getRemainingStr())
+        if self.timer != False: 
+            return self.write(self.timer.getRemainingStr())
+        self.timer = timer.createTimer()
+        self.write("Timer started")
 
-    def write(self, message):
-        write.scroll(str(message), "Rainbow", 1)
+    def write(self, message, colour="Rainbow"):
+        self.writer.clear()
+        self.writer.scroll(str(message), colour)
 
     def writeError(self, message):
-        write.scroll(str(message), "Red", 1)
+        self.write(message, "Red")
 
     def writeSuccess(self, message):
-        write.scroll(str(message), "Green", 1)
+        self.write(message, "Green")
 
 App()
