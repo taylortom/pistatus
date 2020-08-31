@@ -11,14 +11,13 @@ def listen(func):
     button_x = Button(16)
     button_y = Button(24)
 
-    def test(button):
-        func(button_map[button.pin.number])
+    def on_press(button): func(button_map[button.pin.number])
 
     try:
-        button_a.when_pressed = test
-        button_b.when_pressed = test
-        button_x.when_pressed = test
-        button_y.when_pressed = test
+        button_a.when_pressed = on_press
+        button_b.when_pressed = on_press
+        button_x.when_pressed = on_press
+        button_y.when_pressed = on_press
         pause()
 
     except KeyboardInterrupt:
