@@ -74,3 +74,4 @@ class Writer():
         self.uni.clear()
         self.uni.show()
         time.sleep(0.05)
+

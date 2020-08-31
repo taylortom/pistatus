@@ -1,3 +1,4 @@
+import actions;
 import buttons;
 import github;
 import sites;
@@ -15,8 +16,11 @@ class App:
     def on_press(self, button_name):
         if button_name == "A": self.handleContributions()
         elif button_name == "B": self.handleSites()
-        elif button_name == "X": self.handleTime()
+        elif button_name == "X": self.handleActions()
         elif button_name == "Y": self.handleStatus()
+
+    def handleActions(self):
+        actions.check()
 
     def handleContributions(self):
         c = github.getContributions()
