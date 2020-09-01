@@ -10,7 +10,7 @@ def getData():
     try:
         res = requests.get('https://api.github.com/repos/taylortom/adapt-authoring/actions/workflows/2374946/runs')
         runs = res.json()['workflow_runs']
-        if(len(runs) > 17): runs = runs[0:16]
+        if(len(runs) > 17): runs = runs[0:17]
 	for i in range(len(runs)): runs[i] = 1 if runs[i]['conclusion'] == 'success' else 2
         return runs
     except:
