@@ -12,7 +12,7 @@ def getData():
         runs = res.json()['workflow_runs']
         if(len(runs) > 17): runs = runs[0:17]
 	for i in range(len(runs)): runs[i] = 1 if runs[i]['conclusion'] == 'success' else 2
-        return runs
+        return runs[::-1]
     except:
         return []
 
