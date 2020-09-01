@@ -1,5 +1,6 @@
 import actions;
 import buttons;
+import config;
 import github;
 import sites;
 import timer;
@@ -8,6 +9,7 @@ from animations import render;
 
 class App:
     def __init__(self):
+        self.config = config.Config()
         self.timer = False
         self.writer = writer.Writer()
         render("swirl")
@@ -23,7 +25,7 @@ class App:
         actions.check()
 
     def handleContributions(self):
-        c = github.getContributions()
+        c = github.getContributions(self.config)
         if c == False: self.writeError("conn fail")
         elif c < 3000: self.writeError(c)
         else: self.write(c)
@@ -37,7 +39,7 @@ class App:
         else: self.writeError(name)
 
     def handleStatus(self):
-        s = github.getStatus()
+        s = github.getStatus(self.config)
         if s == False: self.writeError("conn fail")
         else: self.write(s)
 
