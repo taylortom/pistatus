@@ -1,22 +1,24 @@
-#!/usr/bin/env python3
+import json
 import requests
 
-def getData():
-    url = 'http://192.168.1.94:5000/api/github/stats'
+def getData(config, query):
     try:
-        return requests.get(url).json()
+        headers = {"Authorization": "Bearer {}".format(config.get("gitHubToken"))}
+        response = requests.post('https://api.github.com/graphql', json={'query': query}, headers=headers)
+        if response.status_code == 200:
+            return response.json()
+        return False
     except:
         return False
 
-def getContributions():
-    d = getData()
+def getContributions(config):
+    d = getData(config, "{ viewer { contributionsCollection { contributionCalendar { totalContributions } } } }")
     if d == False:
         return d
-    return int(d["contributions"])
+    return int(d["data"]["viewer"]["contributionsCollection"]["contributionCalendar"]["totalContributions"])
 
-def getStatus():
-    d = getData()
+def getStatus(config):
+    d = getData(config, "{ viewer { status { message } } }")
     if d == False:
         return d
-    return d["status"]["message"]
-
+    return d["data"]["viewer"]["status"]["message"]
