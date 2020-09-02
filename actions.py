@@ -24,9 +24,6 @@ def draw(data):
 
     display_width, display_height = uni.get_shape()
 
-    interval = 60/17
-    interval = 5
-
     for x in range(display_width):
         r = g = 0
         if len(data) > x:
