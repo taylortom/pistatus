@@ -37,7 +37,7 @@ def draw(data):
             uni.set_pixel(x, y, r, g, 0)
 
     uni.show()
-    time.sleep(3)
+    time.sleep(2)
     uni.clear()
     uni.show()
 
