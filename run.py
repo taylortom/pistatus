@@ -4,6 +4,7 @@ import config;
 import github;
 import sites;
 import timer;
+import wifi;
 import writer;
 from animations import render;
 
@@ -17,8 +18,8 @@ class App:
 
     def on_press(self, button_name):
         if button_name == "A": self.handleContributions()
-        elif button_name == "B": self.handleSites()
-        elif button_name == "X": self.handleActions()
+        elif button_name == "B": self.handleActions()
+        elif button_name == "X": self.handleWifiStrength()
         elif button_name == "Y": self.handleStatus()
 
     def handleActions(self):
@@ -47,10 +48,13 @@ class App:
         self.write(timer.getTime())
 
     def handleTimer(self):
-        if self.timer != False: 
+        if self.timer != False:
             return self.write(self.timer.getRemainingStr())
         self.timer = timer.createTimer()
         self.write("Timer started")
+
+    def handleWifiStrength(self):
+        wifi.checkStrength()
 
     def write(self, message, colour="Rainbow"):
         self.writer.clear()
