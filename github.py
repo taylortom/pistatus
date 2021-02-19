@@ -3,7 +3,7 @@ import requests
 
 def getData(config, query):
     try:
-        headers = {"Authorization": "Bearer " + config.get("gitHubToken")
+        headers = { "Authorization": "Bearer " + config.get("gitHubToken") }
         response = requests.post('https://api.github.com/graphql', json={'query': query}, headers=headers)
         if response.status_code == 200:
             return response.json()
